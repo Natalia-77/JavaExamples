@@ -1,6 +1,8 @@
 package program;
 
 import bookTask.BookStore;
+import carTask.Car;
+import carTask.CarModel;
 import cityTask.*;
 import countryTask.Portugese;
 import countryTask.Ukraine;
@@ -44,13 +46,21 @@ public class Main {
 //        System.out.println(resourses.toString());
 //        resourses.offer(230);
 //        resourses.screen(233);
-        BookStore store=new BookStore("Slovo");
-        store.addBooks();
-        store.Print();
-        store.addDetective();
-        store.Print();
-        store.soldDetective("Petrov");
-        store.Print();
+//        BookStore store=new BookStore("Slovo");
+//        store.addBooks();
+//        store.Print();
+//        store.addDetective();
+//        store.Print();
+//        store.soldDetective("Petrov");
+//        store.Print();
+
+        Car car = new Car("A100", CarModel.Audi, 1998,"Ivanov");
+        car.move();
+        car.addSpeed(20);
+        car.addSpeed(30);
+        System.out.println(car.toString());
+        car.stop();
+
 
 
 
