@@ -1,32 +1,25 @@
 package bookTask;
 
-import cityTask.Area;
 import lombok.Data;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 @Data
-public class BookStore implements  DetectiveBook,DramaBook {
-
-    private String title;
-    private String author;
-    private String genre;
-    private int year;
-    private int price;
+public class BookStore implements  DetectiveBook ,DramaBook {
+    String name;
     private int totalPrice;
+    ArrayList<BookDetective> book= new ArrayList<BookDetective>();
+    ArrayList<BookDrama> bookDrama= new ArrayList<BookDrama>();
 
-    public BookStore(String title, String author, String genre, int year, int price){
-       this.title = title;
-       this.author = author;
-       this.genre = genre;
-       this.year = year;
-       this.price = price;
-   }
+    public BookStore(String name){
+
+        this.name=name;
+        this.totalPrice = 5000;
+    }
+
     @Override
     public void addDetective(String title, String author, int year, int price) {
-
-       new BookStore(title,author,"Detective",year,price);
-       this.totalPrice+=price;
+      book.add(new BookDetective(title,author,"Detective",year,price));
     }
 
     public void addDetective(){
@@ -40,34 +33,43 @@ public class BookStore implements  DetectiveBook,DramaBook {
         int yearNew = in.nextInt();
         System.out.println("Enter price:");
         int priceNew = in.nextInt();
+        book.add(new BookDetective(titleNew, authorNew, genreNew, yearNew, priceNew));
         this.totalPrice+=priceNew;
-        new BookStore(titleNew,authorNew,genreNew,yearNew,priceNew);
-    }
 
+    }
     @Override
-    public void soldDetective(int price) {
-       this.totalPrice-=price;
+    public void soldDetective(String titleName ) {
+        for (int i = 0; i < book.size(); i++) {
+           if(book.get(i).getAuthor().toString()==titleName){
+               book.remove(book.get(i));
+           }
+        }
+
+    }
+    public void addBooks(){
+        book.add(new BookDetective("First","Petrov","Detective",2020,358));
+        book.add(new BookDetective("Second","Ivanov","Detective",1998,600));
+        book.add(new BookDetective("Third","Romanov","Detective",2013,125));
     }
 
-    public void soldDetective() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter price sold:");
-        int priceNew = in.nextInt();
-        this.totalPrice-=priceNew;
+    public void Print(){
+        for (BookDetective i:book)
+        {
+            System.out.println(i.getAuthor());
+        }
     }
 
     @Override
     public void addDrama(String title, String author, int year, int price) {
-        new BookStore(title,author,"Drama",year,price);
-        this.totalPrice+=price;
+        bookDrama.add(new BookDrama(title,author,"Drama",year,price));
     }
 
     @Override
     public void soldDrama(String title) {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter price sold:");
-        int priceNew = in.nextInt();
-        this.totalPrice-=priceNew;
-        System.out.println("Already sold "+ title);
+        for (int i = 0; i < bookDrama.size(); i++) {
+            if(bookDrama.get(i).getAuthor().toString()==title){
+                bookDrama.remove(bookDrama.get(i));
+            }
+        }
     }
 }
